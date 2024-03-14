@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/head') %>
+    <title>Homepage</title>
+    <style>
+      .main-heading {
+        font-size: 40px;
+        color: brown;
+        font-weight: 700;
+      }
+
+      .button {
+        align-items: right;
+      }
+    </style>
+</head>
+
+<body>
+  <%- include('./partials/nav') %>
+    <% if (locals.user) { %>
+      <div class="container pt-4 text-center">
+        <p class="main-heading">Effortlessly organize your day with our sleek todo app</p>
+      </div>
+      <div class="container mt-5">
+        <form class="d-flex" action="/data" method="post">
+          <div class="me-2" style="width: 70%;">
+            <label for="inputText" class="visually-hidden">Enter Text:</label>
+            <input type="text" class="form-control" name="data" id="inputText" placeholder="Type something..."
+              style="width: 100%;" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <% works.forEach(work=> { %>
+        <div class="container mt-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="me-3"><%= work.body %></p>
+            
+            <form action="/data/delete/<%= work._id %>?_method=DELETE" method="post" class="d-inline">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger me-2">Delete</button>
+          </form>
+          </div>
+
+        </div>
+        <% }) %>
+
+          <% } %>
+            <%- include('./partials/scripts') %>
+</body>
+
+</html>
